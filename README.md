@@ -2,10 +2,10 @@
 
 ## To Do
 
-Alles wat met code te maken heeft moet met functies in apparte .py files (modules) gemaakt worden.
+Alles wat met code te maken heeft moet met functies in apparte .py files (modules/classes) gemaakt worden.
 
 - [ ] 3D printen van het voeder systeem
-- [ ] Aansturen van de stepper motor
+- [x] Aansturen van de stepper motor
 - [ ] Aansturen van de relais
 - [ ] Aansturen van het lcd schermpje
 - [ ] Uitlezen van de buttons
