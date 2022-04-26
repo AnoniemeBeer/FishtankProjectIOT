@@ -26,18 +26,26 @@ class fishFeederMotor:
     def getCurrentRotation(self):
         return self.currentRotation
 
-    def rotateOneStep(self):
+    def rotateOneStep(self, direction):
         GPIO.output(self.pins, self.stepSequence[self.stepSequenceStep])
 
-        self.stepSequenceStep = self.stepSequenceStep + 1
+        self.stepSequenceStep = self.stepSequenceStep + direction
         if self.stepSequenceStep == 7:
             self.stepSequenceStep = 0
 
-    def rotate(self):
-        stepsToRotate = self.stepSize // self.degreePerStep
-        for i in range(0, int(stepsToRotate)):
-            self.rotateOneStep()
-            time.sleep(0.003)
+    def rotate(self, steps):
+        
+        if steps > 0:
+            stepsToRotate = self.stepSize // self.degreePerStep
+            for i in range(0, int(stepsToRotate)):
+                self.rotateOneStep(1)
+                time.sleep(0.003)
+        if steps < 0:
+            stepsToRotate = self.stepSize // self.degreePerStep
+            for i in range(0, int(stepsToRotate)):
+                self.rotateOneStep(-1)
+                time.sleep(0.003)
+            
 
     def cleanUp(self):
         GPIO.output(pins, False)
