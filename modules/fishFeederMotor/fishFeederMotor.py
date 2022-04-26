@@ -1,3 +1,4 @@
+from turtle import forward
 import RPi.GPIO as GPIO
 import time
 
@@ -32,15 +33,17 @@ class fishFeederMotor:
         self.stepSequenceStep = self.stepSequenceStep + direction
         if self.stepSequenceStep == 7:
             self.stepSequenceStep = 0
+        if self.stepSequenceStep == -1:
+            self.stepSequenceStep = 7
 
     def rotate(self, steps):
         
-        if steps > 0:
+        if steps == "cw":
             stepsToRotate = self.stepSize // self.degreePerStep
             for i in range(0, int(stepsToRotate)):
                 self.rotateOneStep(1)
                 time.sleep(0.003)
-        if steps < 0:
+        if steps == "ccw":
             stepsToRotate = self.stepSize // self.degreePerStep
             for i in range(0, int(stepsToRotate)):
                 self.rotateOneStep(-1)
@@ -61,7 +64,7 @@ if __name__ == "__main__":
         stepperMotor.setup()
         stepperMotor.setFeederHoleAmount(10)
 
-        stepperMotor.rotate()
+        stepperMotor.rotate("cw")
 
     except KeyboardInterrupt:
         stepperMotor.cleanUp()
