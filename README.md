@@ -8,7 +8,7 @@ Alles wat met code te maken heeft moet met functies in apparte .py files (module
 - [x] Aansturen van de stepper motor
 - [ ] Aansturen van de relais
 - [ ] Aansturen van het lcd schermpje
-- [ ] Uitlezen van de buttons
+- [x] Uitlezen van de buttons
 - [ ] Uitlezen van de ultrasone sensor (afstands sensor)
 - [ ] Ubeac upload
 - [ ] Live stream
