@@ -7,10 +7,19 @@ class fishFeederMotor:
     pins = []
     currentRotation = 0 # Rotation in steps
     stepSize = 36 # Step size in degrees
-    # stepSequence = [[0, 1, 1, 1], [0, 0, 1, 1], [1, 0, 1, 1], [1, 0, 0, 1], [1, 1, 0, 1], [1, 1, 0, 0], [1, 1, 1, 0], [0, 1, 1, 0]]
-    stepSequence = [[False, True, True, True], [False, False, True, True], [True, False, True, True], [True, False, False, True], [True, True, False, True], [True, True, False, False], [True, True, True, False], [False, True, True, False]]
+    stepSequence = [
+        [False, True, True, True], 
+        [False, False, True, True], 
+        [True, False, True, True], 
+        [True, False, False, True], 
+        [True, True, False, True], 
+        [True, True, False, False], 
+        [True, True, True, False], 
+        [False, True, True, False]
+    ]
     stepSequenceStep = 0
-    degreePerStep = 360 / 4096
+    oneRevolution = 4076
+    degreePerStep = 360 / oneRevolution
 
     def __init__(self, pinArray):
         self.pins = pinArray
@@ -30,30 +39,28 @@ class fishFeederMotor:
     def getCurrentDegrees(self):
         return self.currentRotation * self.degreePerStep
 
-    def rotateOneStep(self, direction):
-        GPIO.output(self.pins, self.stepSequence[self.stepSequenceStep])
+    def rotateOneStep(self, direction, step, stepsToRotate):
 
-        self.stepSequenceStep = self.stepSequenceStep + direction
-        if self.stepSequenceStep == 7:
-            self.stepSequenceStep = 0
-        if self.stepSequenceStep == -1:
-            self.stepSequenceStep = 7
+        if direction == "cw":
+            GPIO.output(self.pins, self.stepSequence[step%8])
 
-    def rotate(self, steps):
+        elif direction == "ccw":
+            GPIO.output(self.pins, self.stepSequence[stepsToRotate+1-(step%8)])
+
+
+    def rotate(self, direction):
+
+        stepsToRotate = int(self.stepSize // self.degreePerStep)
         
-        if steps == "cw":
-            stepsToRotate = self.stepSize // self.degreePerStep
-            for i in range(0, int(stepsToRotate)):
-                self.rotateOneStep(1)
-                time.sleep(0.003)
-                self.currentRotation = self.currentRotation + 1
-        if steps == "ccw":
-            stepsToRotate = self.stepSize // self.degreePerStep
-            for i in range(0, int(stepsToRotate)):
-                self.rotateOneStep(-1)
-                time.sleep(0.003)
-                self.currentRotation = self.currentRotation - 1
-            
+        if direction == "cw":
+            for i in range(0, stepsToRotate):
+                self.rotateOneStep("cw", i, stepsToRotate)
+                time.sleep(0.002)
+
+        if direction == "ccw":
+            for i in range(0, stepsToRotate):
+                self.rotateOneStep("ccw", i, stepsToRotate)
+                time.sleep(0.002)
 
     def cleanUp(self):
         GPIO.output(pins, False)
@@ -69,7 +76,8 @@ if __name__ == "__main__":
         stepperMotor.setFeederHoleAmount(10)
 
         for i in range(0, 10):
-            stepperMotor.rotate("cw")
+            stepperMotor.rotate("ccw")
+
 
     except KeyboardInterrupt:
         stepperMotor.cleanUp()
