@@ -39,13 +39,13 @@ class fishFeederMotor:
     def getCurrentDegrees(self):
         return self.currentRotation * self.degreePerStep
 
-    def rotateOneStep(self, direction, step, stepsToRotate):
+    def rotateOneStep(self, direction, step):
 
         if direction == "cw":
             GPIO.output(self.pins, self.stepSequence[step%8])
 
         elif direction == "ccw":
-            GPIO.output(self.pins, self.stepSequence[stepsToRotate+1-(step%8)])
+            GPIO.output(self.pins, self.stepSequence[7-(step%8)])
 
 
     def rotate(self, direction):
@@ -54,12 +54,12 @@ class fishFeederMotor:
         
         if direction == "cw":
             for i in range(0, stepsToRotate):
-                self.rotateOneStep("cw", i, stepsToRotate)
+                self.rotateOneStep("cw", i)
                 time.sleep(0.002)
 
         if direction == "ccw":
             for i in range(0, stepsToRotate):
-                self.rotateOneStep("ccw", i, stepsToRotate)
+                self.rotateOneStep("ccw", i)
                 time.sleep(0.002)
 
     def cleanUp(self):
@@ -75,8 +75,11 @@ if __name__ == "__main__":
         stepperMotor.setup()
         stepperMotor.setFeederHoleAmount(10)
 
-        for i in range(0, 10):
+        for i in range(0, 2):
             stepperMotor.rotate("ccw")
+            time.sleep(1)
+            stepperMotor.rotate("cw")
+            time.sleep(1)
 
 
     except KeyboardInterrupt:
