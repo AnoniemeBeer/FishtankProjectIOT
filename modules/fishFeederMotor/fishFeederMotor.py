@@ -5,7 +5,7 @@ import time
 class fishFeederMotor:
     
     pins = []
-    currentRotation = 0 # Rotation in degrees
+    currentRotation = 0 # Rotation in steps
     stepSize = 36 # Step size in degrees
     # stepSequence = [[0, 1, 1, 1], [0, 0, 1, 1], [1, 0, 1, 1], [1, 0, 0, 1], [1, 1, 0, 1], [1, 1, 0, 0], [1, 1, 1, 0], [0, 1, 1, 0]]
     stepSequence = [[False, True, True, True], [False, False, True, True], [True, False, True, True], [True, False, False, True], [True, True, False, True], [True, True, False, False], [True, True, True, False], [False, True, True, False]]
@@ -27,6 +27,9 @@ class fishFeederMotor:
     def getCurrentRotation(self):
         return self.currentRotation
 
+    def getCurrentDegrees(self):
+        return self.currentRotation * self.degreePerStep
+
     def rotateOneStep(self, direction):
         GPIO.output(self.pins, self.stepSequence[self.stepSequenceStep])
 
@@ -43,11 +46,13 @@ class fishFeederMotor:
             for i in range(0, int(stepsToRotate)):
                 self.rotateOneStep(1)
                 time.sleep(0.003)
+                self.currentRotation = self.currentRotation + 1
         if steps == "ccw":
             stepsToRotate = self.stepSize // self.degreePerStep
             for i in range(0, int(stepsToRotate)):
                 self.rotateOneStep(-1)
                 time.sleep(0.003)
+                self.currentRotation = self.currentRotation - 1
             
 
     def cleanUp(self):
@@ -56,7 +61,6 @@ class fishFeederMotor:
 
 if __name__ == "__main__":
     try:
-
         GPIO.setmode(GPIO.BCM)
 
         pins = [2, 3, 4, 17]
@@ -64,7 +68,8 @@ if __name__ == "__main__":
         stepperMotor.setup()
         stepperMotor.setFeederHoleAmount(10)
 
-        stepperMotor.rotate("cw")
+        for i in range(0, 10):
+            stepperMotor.rotate("cw")
 
     except KeyboardInterrupt:
         stepperMotor.cleanUp()
