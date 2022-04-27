@@ -1,17 +1,36 @@
+import time
 import RPi.GPIO as GPIO
 
 class relay:
     pin = 0
+    status = True
     def __init__(self, pin):
         self.pin = pin
     
     def setup(self):
-        GPIO.setup(self.pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-
-    def setupInterrupt(self): 
-        pass
-
+        GPIO.setup(self.pin, GPIO.OUT)
+        GPIO.output(self.pin, True)
     
+    def setStatus(self, status):
+        self.status = status
+        GPIO.output(self.pin, self.status)
+    
+    def toggleStatus(self):
+        self.status = not self.status
+        GPIO.output(self.pin, self.status)
+
+    def cleanUp(self):
+        GPIO.cleanup()
 
 if __name__ == "__main__":
-    pass
+    GPIO.setmode(GPIO.BCM)
+    light = relay(26)
+
+    light.setup()
+
+    try:
+        while True:
+            light.toggleStatus()
+            time.sleep(1)
+    except KeyboardInterrupt:
+        light.cleanUp()

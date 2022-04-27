@@ -64,6 +64,7 @@ class fishFeederMotor:
 
     def cleanUp(self):
         GPIO.output(pins, False)
+        GPIO.cleanup()
 
 
 if __name__ == "__main__":

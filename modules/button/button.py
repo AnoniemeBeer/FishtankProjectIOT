@@ -13,6 +13,9 @@ class button:
     def setupInterrupt(self, interruptFunction):
         GPIO.add_event_detect(self.pin, GPIO.FALLING, callback=interruptFunction, bouncetime=30)
 
+    def cleanup(self):
+        GPIO.cleanup()
+
 
 def buttonFunction(channel):
     print("Button pressed!  ", end="")
