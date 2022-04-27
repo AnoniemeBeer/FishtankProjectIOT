@@ -25,7 +25,7 @@ objectName.setupInterrupt(function)
 The function provided for the interrupt must have one parameter: channel. When the function is called by the interrupt, this parameter will be the pin number that the interrupt occured on.
 
 ```python
-def buttonFunction(channel):
+def function(channel):
     print("Button pressed!")
 ```
 
