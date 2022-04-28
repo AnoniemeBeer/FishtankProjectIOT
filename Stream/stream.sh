@@ -1,0 +1,1 @@
+ffmpeg -f v4l2 -s 1920x1080 -input_format mjpeg -r 10 -i /dev/video0 -vcodec libx264 -pix_fmt yuv420p -preset ultrafast -r 30 -g 20 -b:v 2500k -codec:a libmp3lame -ar 44100 -threads 6 -b:a 11025 -bufsize 512k -f flv rtmp://live.twitch.tv/app/live_132123110_xGjkyHetlR0OxbrTC5UXnMJzHHFnRy

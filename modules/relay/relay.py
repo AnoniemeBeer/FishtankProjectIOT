@@ -20,7 +20,7 @@ class relay:
         GPIO.output(self.pin, self.status)
 
     def cleanUp(self):
-        GPIO.cleanup()
+        GPIO.output(self.pin, True)
 
 if __name__ == "__main__":
     GPIO.setmode(GPIO.BCM)

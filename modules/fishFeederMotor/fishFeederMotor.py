@@ -64,7 +64,6 @@ class fishFeederMotor:
 
     def cleanUp(self):
         GPIO.output(pins, False)
-        GPIO.cleanup()
 
 
 if __name__ == "__main__":
@@ -76,11 +75,11 @@ if __name__ == "__main__":
         stepperMotor.setup()
         stepperMotor.setFeederHoleAmount(10)
 
-        for i in range(0, 2):
-            stepperMotor.rotate("ccw")
-            time.sleep(1)
-            stepperMotor.rotate("cw")
-            time.sleep(1)
+
+        stepperMotor.rotate("ccw")
+        time.sleep(1)
+        stepperMotor.rotate("cw")
+        time.sleep(1)
 
 
     except KeyboardInterrupt:
