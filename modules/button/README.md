@@ -6,7 +6,8 @@ The button is connected between a ground (GND) and any GPIO pin. The class sets 
 
 ## Usage
 
-To use the class, you first need to make an object with the class:
+To use the class, you first need to make an object with the class. The construction method takes one parameter: the GPIO pin number that the button is connected to.
+This can be done  the following way:
 
 ```python
 objectName = button(pinNumber)

@@ -14,18 +14,26 @@ class uBeac:
                 "data": sensorValue
             }]
         }
-        response = requests.post(self.url, json=data)
-        return response.text
+        requests.post(self.url, json=data)
+
+    def sendBigData(self, data):
+        requests.post(self.url, json=data)
+
 
 if __name__ == '__main__':
     url = "https://fishtank.hub.ubeac.io/main"
     uBeacSend = uBeac(url)
+    delay = 0.5
     while True:
-        light = randrange(0, 101, 100)
-        waterLevel = randrange(0, 20)
-        pump = randrange(0, 101, 100)
-
-        uBeacSend.sendData("raspberry pi", "waterLevel", waterLevel)
-        uBeacSend.sendData("raspberry pi", "pump", pump)
-        uBeacSend.sendData("raspberry pi", "light", light)
-        time.sleep(1)
+        uBeacSend.sendData("raspberry pi", "waterLevel", 20)
+        time.sleep(delay)
+        uBeacSend.sendData("raspberry pi", "pump", 100)
+        time.sleep(delay)
+        uBeacSend.sendData("raspberry pi", "light", 100)
+        time.sleep(delay)
+        uBeacSend.sendData("raspberry pi", "waterLevel", 0)
+        time.sleep(delay)
+        uBeacSend.sendData("raspberry pi", "pump", 0)
+        time.sleep(delay)
+        uBeacSend.sendData("raspberry pi", "light", 0)
+        time.sleep(delay)
