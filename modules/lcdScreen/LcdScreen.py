@@ -3,7 +3,9 @@ import busio
 import digitalio
 import board
 import adafruit_pcd8544
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image
+from PIL import ImageDraw
+from PIL import ImageFont
 
 class lcdScreen:
     def __init__(self):
