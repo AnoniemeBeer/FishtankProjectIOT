@@ -1,6 +1,6 @@
 import time
 import RPi.GPIO as GPIO
-class ultrasoneSensor:
+class ultrasonicSensor:
     
     def __init__(self, triggerPin, echoPin):
         self.trig = triggerPin
@@ -37,7 +37,7 @@ if __name__ == '__main__':
 
     GPIO.setmode(GPIO.BCM)
 
-    sensor = ultrasoneSensor(13, 6)
+    sensor = ultrasonicSensor(13, 6)
     sensor.setup()
 
     while True:
