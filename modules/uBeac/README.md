@@ -48,7 +48,7 @@ This method requires one parameter. That parameter is a json with format:
 }
 ```
 
-## example program
+## Example script
 ```python
 import requests
 from random import randrange

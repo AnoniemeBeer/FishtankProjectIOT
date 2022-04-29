@@ -6,8 +6,6 @@ class relay:
     status = True
     def __init__(self, pin):
         self.pin = pin
-    
-    def setup(self):
         GPIO.setup(self.pin, GPIO.OUT)
         GPIO.output(self.pin, True)
     

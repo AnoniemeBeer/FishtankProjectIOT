@@ -32,7 +32,7 @@ def function(channel):
     print("Button pressed!")
 ```
 
-## example program
+## Example script
 
 ```python
 import RPi.GPIO as GPIO
