@@ -1,4 +1,3 @@
-from turtle import forward
 import RPi.GPIO as GPIO
 import time
 
@@ -23,8 +22,6 @@ class fishFeederMotor:
 
     def __init__(self, pinArray):
         self.pins = pinArray
-
-    def setup(self):
         GPIO.setup(self.pins, GPIO.OUT)
 
     def setStepSize(self, stepSize):
@@ -32,12 +29,6 @@ class fishFeederMotor:
 
     def setFeederHoleAmount(self, amount):
         self.stepSize = 360 / amount
-
-    def getCurrentRotation(self):
-        return self.currentRotation
-
-    def getCurrentDegrees(self):
-        return self.currentRotation * self.degreePerStep
 
     def rotateOneStep(self, direction, step):
 
