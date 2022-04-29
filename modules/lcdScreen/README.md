@@ -71,7 +71,7 @@ This can be done  the following way:
 objectName = lcdScreen()
 ```
 
-If the object is made, you can start to use the methods of the class. To set the state of the relay pin, the following method is used.
+To push text to the display, the method setText is used. This method requires one parameter:
 
 ```python
 objectName.setText(text)
@@ -87,7 +87,7 @@ text = ["Line 1",
         "Line 5"]
 ```
 
-Aside from setting the state, there is also a way to toggle it:
+Every time a new text is displayed, the complete screen needs to be cleared. The method clearDisplay does exacly that. The method doesnt have to be called everytime new text is displayed, it is implemented in the setText method.
 
 ```python
 objectName.clearDisplay()
