@@ -13,4 +13,5 @@ Alles wat met code te maken heeft moet met functies in apparte .py files (module
 - [x] Ubeac upload
 - [x] Live stream
 - [ ] Telefoon bediening
+- [x] readme's
 - [ ] Fisieke setup
