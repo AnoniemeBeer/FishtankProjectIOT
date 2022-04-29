@@ -1,8 +1,10 @@
 # Button 
 
+The button is connected between a ground (GND) and any GPIO pin. The class sets the given GPIO pin to an input with an pull up resistor meaning: there will be an internal resistor connected between 3.3V and the GPIO pin.
+
 <img src="buttonBreadboard.png" alt="breadboard" height="400"/> <img src="buttonSchematic.png" alt="schematic" height="400"/>
 
-## usage
+## Usage
 
 To use the class, you first need to make an object with the class:
 
