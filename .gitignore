@@ -1,2 +1,6 @@
 __pycache__
 test*.py
+
+/homebridge/volumes/homebridge/*
+!/homebridge/volumes/homebridge/package.json
+!/homebridge/volumes/homebridge/config.json

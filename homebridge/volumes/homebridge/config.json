@@ -1,0 +1,25 @@
+{
+    "bridge": {
+        "name": "Homebridge 5CE9",
+        "username": "0E:4F:63:70:5C:E9",
+        "port": 52917,
+        "pin": "031-45-154"
+    },
+    "accessories": [
+        {
+            "accessory": "HTTP-SWITCH",
+            "name": "Lamp",
+            "switchType": "stateful",
+            "onUrl": "http://localhost:12345/light/switchOn",
+            "offUrl": "http://localhost:12345/light/switchOff",
+            "statusUrl": "http://localhost:12345/light/switchStatus"
+        }
+    ],
+    "platforms": [
+        {
+            "name": "Config",
+            "port": 8581,
+            "platform": "config"
+        }
+    ]
+}
