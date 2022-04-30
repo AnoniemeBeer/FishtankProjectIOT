@@ -55,25 +55,3 @@ class fishFeederMotor:
 
     def cleanUp(self):
         GPIO.output(self.pins, False)
-
-
-if __name__ == "__main__":
-    try:
-        GPIO.setmode(GPIO.BCM)
-
-        pins = [2, 3, 4, 17]
-        stepperMotor = fishFeederMotor(pins)
-        stepperMotor.setup()
-        stepperMotor.setFeederHoleAmount(10)
-
-
-        stepperMotor.rotate("ccw")
-        time.sleep(1)
-        stepperMotor.rotate("cw")
-        time.sleep(1)
-
-
-    except KeyboardInterrupt:
-        stepperMotor.cleanUp()
-        print("\nProgram stopped by user")
-    stepperMotor.cleanUp()

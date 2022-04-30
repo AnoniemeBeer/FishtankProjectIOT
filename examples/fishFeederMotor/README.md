@@ -96,7 +96,7 @@ class fishFeederMotor:
                 time.sleep(0.002)
 
     def cleanUp(self):
-        GPIO.output(pins, False)
+        GPIO.output(self.pins, False)
 
 
 if __name__ == "__main__":
