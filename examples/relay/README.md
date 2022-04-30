@@ -42,13 +42,11 @@ class relay:
     status = True
     def __init__(self, pin):
         self.pin = pin
-    
-    def setup(self):
         GPIO.setup(self.pin, GPIO.OUT)
         GPIO.output(self.pin, True)
     
     def setStatus(self, status):
-        self.status = status
+        self.status = not status
         GPIO.output(self.pin, self.status)
     
     def toggleStatus(self):
@@ -61,8 +59,6 @@ class relay:
 if __name__ == "__main__":
     GPIO.setmode(GPIO.BCM)
     light = relay(26)
-
-    light.setup()
 
     try:
         while True:
