@@ -12,6 +12,6 @@ Alles wat met code te maken heeft moet met functies in apparte .py files (module
 - [x] Uitlezen van de ultrasone sensor (afstands sensor)
 - [x] Ubeac upload
 - [x] Live stream
-- [ ] Telefoon bediening
+- [x] Telefoon bediening
 - [x] readme's
 - [ ] Fisieke setup
