@@ -27,10 +27,11 @@ class MyServer(BaseHTTPRequestHandler):
             status = 0
             light.setStatus(status)
         
-        if self.path == "/light/getStatus":
+        if self.path == "/light/switchStatus":
+            status = light.getStatus()
             self.wfile.write(bytes(str(status), "utf-8"))
 
-if __name__ == "__main__":        
+if __name__ == "__main__":
     webServer = HTTPServer((hostName, serverPort), MyServer)
     print("Server started http://%s:%s" % (hostName, serverPort))
 

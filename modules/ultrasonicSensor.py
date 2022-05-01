@@ -6,8 +6,6 @@ class ultrasonicSensor:
     def __init__(self, triggerPin, echoPin):
         self.trig = triggerPin
         self.echo = echoPin
-    
-    def setup(self):
         GPIO.setup(self.trig, GPIO.OUT)
         GPIO.setup(self.echo, GPIO.IN)
 
