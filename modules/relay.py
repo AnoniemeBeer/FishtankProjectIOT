@@ -16,5 +16,8 @@ class relay:
         self.status = not self.status
         GPIO.output(self.pin, self.status)
 
+    def getStatus(self):
+        return self.status
+
     def cleanUp(self):
         GPIO.output(self.pin, True)
