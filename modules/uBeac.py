@@ -1,5 +1,4 @@
 import requests
-from random import randrange
 
 class uBeac:
     def __init__(self, url):
