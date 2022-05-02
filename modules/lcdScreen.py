@@ -44,8 +44,19 @@ class lcdScreen:
         self.display.image(self.image)
         self.display.show()
 
+    def setImage(self, imagePath):
+        self.clearDisplay()
+        image = Image.open(imagePath).resize((self.display.width, self.display.height), Image.ANTIALIAS).convert('1')
+
+        self.display.image(image)
+        self.display.show()
+
     def clearDisplay(self):
         draw = ImageDraw.Draw(self.image)
         draw.rectangle((0, 0, self.display.width, self.display.height), outline=255, fill=255)
         self.display.image(self.image)
         self.display.show()
+
+if __name__ == '__main__':
+    lcd = lcdScreen()
+    lcd.setImage('fish.png')

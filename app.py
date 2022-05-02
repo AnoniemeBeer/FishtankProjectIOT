@@ -42,6 +42,7 @@ if __name__ == "__main__":
         feeder = fishFeederMotor(feederPins)
 
         lcdScreen = lcdScreen()
+        lcdScreen.setImage('../images/fish.png')
 
         light = relay(lightRelayPin)
         pump = relay(pumpRelayPin)
@@ -134,7 +135,8 @@ if __name__ == "__main__":
         elif light.getStatus() == 0:
             lcdTextArray[3] = "Light: Off"
             lcdTextArray[4] = str(timedelta(seconds=int((lightOnTime - currentDatetime).total_seconds())))
-
+        
+        lcdScreen.clearDisplay()
         lcdScreen.setText(lcdTextArray)
         oldLcdTextArray = list(lcdTextArray)
 
