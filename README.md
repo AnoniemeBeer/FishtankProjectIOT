@@ -14,5 +14,5 @@ Alles wat met code te maken heeft moet met functies in apparte .py files (module
 - [x] Live stream
 - [x] Telefoon bediening
 - [x] readme's
-- [ ] software
+- [x] software
 - [ ] Fisieke setup

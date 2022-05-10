@@ -8,6 +8,7 @@ from PIL import ImageDraw
 from PIL import ImageFont
 
 class lcdScreen:
+    # constructor
     def __init__(self):
 
         # Initialize SPI bus
@@ -37,6 +38,7 @@ class lcdScreen:
         # Draw a white filled box to clear the image.
         draw.rectangle((0, 0, self.display.width, self.display.height), outline=255, fill=255)
 
+    # set the text to display
     def setText(self, textArray):
         self.clearDisplay()
         draw = ImageDraw.Draw(self.image)
@@ -44,7 +46,16 @@ class lcdScreen:
             draw.text((1, i*8), textArray[i], font=self.font)
         self.display.image(self.image)
         self.display.show()
+    
+    # set an image on the display, takes a path to the image
+    def setImage(self, imagePath):
+        self.clearDisplay()
+        image = Image.open(imagePath).resize((self.display.width, self.display.height), Image.ANTIALIAS).convert('1')
 
+        self.display.image(image)
+        self.display.show()
+
+    # clear display
     def clearDisplay(self):
         draw = ImageDraw.Draw(self.image)
         draw.rectangle((0, 0, self.display.width, self.display.height), outline=255, fill=255)

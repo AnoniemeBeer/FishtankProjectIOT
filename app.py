@@ -24,35 +24,11 @@ if __name__ == "__main__":
         feederPins = [2, 3, 4, 17]
         lightRelayPin = 26
         pumpRelayPin = 19
-        uBeacUrl = "https://fishtank.hub.ubeac.io/main"
         triggerPin = 13
         echoPin = 6
 
         #setting all variables used by the feeder
         feederHoleAmount = 10
-
-        # -----------------------------------------------------------------------------------------------------------------
-        # *All objects are made here
-        # making objects for the different modules
-        feedCwButton = button(feedCwButtonPin)
-        feedCcwButton = button(feedCcwButtonPin)
-        lightButton = button(lightButtonPin)
-        pumpButton = button(pumpButtonPin)
-        
-        feeder = fishFeederMotor(feederPins)
-
-        lcdScreen = lcdScreen()
-        lcdScreen.setImage('../images/fish.png')
-
-        light = relay(lightRelayPin)
-        pump = relay(pumpRelayPin)
-
-        uBeac = uBeac(uBeacUrl)
-
-        ultrasonicSensor = ultrasonicSensor(triggerPin, echoPin)
-
-        # setting up the feeder
-        feeder.setFeederHoleAmount(feederHoleAmount)
 
         # -----------------------------------------------------------------------------------------------------------------
         # *user choices are made here
@@ -93,6 +69,32 @@ if __name__ == "__main__":
         # button variables
         manualPump = 0
 
+        # uBeac variables
+        uBeacUrl = "https://fishtank.hub.ubeac.io/main"
+
+        # -----------------------------------------------------------------------------------------------------------------
+        # *All objects are made here
+        # making objects for the different modules
+        feedCwButton = button(feedCwButtonPin)
+        feedCcwButton = button(feedCcwButtonPin)
+        lightButton = button(lightButtonPin)
+        pumpButton = button(pumpButtonPin)
+        
+        feeder = fishFeederMotor(feederPins)
+
+        lcdScreen = lcdScreen()
+        lcdScreen.setImage('../images/fish.png')
+
+        light = relay(lightRelayPin)
+        pump = relay(pumpRelayPin)
+
+        uBeac = uBeac(uBeacUrl)
+
+        ultrasonicSensor = ultrasonicSensor(triggerPin, echoPin)
+
+        # setting up the feeder
+        feeder.setFeederHoleAmount(feederHoleAmount)
+
         # -----------------------------------------------------------------------------------------------------------------
         # *Button functions
         # creating the button functions
@@ -113,7 +115,7 @@ if __name__ == "__main__":
             pump.setManual(1)
             uBeac.sendData("raspberry pi", "pump", pump.getStatus()*100)
 
-        # making the button interrupts
+        # initializing the button interrupts
         feedCwButton.setupInterrupt(feedCw)
         feedCcwButton.setupInterrupt(feedCcw)
         lightButton.setupInterrupt(lightToggle)
@@ -151,15 +153,13 @@ if __name__ == "__main__":
             # updating the current time variable
             currentDatetime = datetime.now()
 
-
             # reading the ultrasonic sensor and dealing with anything it has to deal with
             
             if ultrasonicTime < currentDatetime:
                 waterdistance = ultrasonicSensor.getDistance()
                 print("Water distance:", waterdistance, "cm")
-
-                # if the water level changed by more than 1 cm
-                if waterdistance - 1 > previousWaterdistance or waterdistance + 1 < previousWaterdistance:
+                # only change the lcd screen if the water distance has changed more then 0.5 cm since it was last changed
+                if waterdistance - 0.5 > previousWaterdistance or waterdistance + 0.5 < previousWaterdistance:
                     lcdTextArray[1] = "Water: " + str(waterdistance)
                     previousWaterdistance = waterdistance
 
@@ -167,12 +167,14 @@ if __name__ == "__main__":
 
                 ultrasonicTime = ultrasonicTime + timedelta(seconds=1)
 
+                # if the waterlevel is to low, the pump is turned on
                 if waterdistance > float(normalWaterdistance):
                     if pump.getStatus() == 0 and pump.getManual() == 0:
                         pump.setStatus(1)
                         print("Pump turned on")
                         uBeac.sendData("raspberry pi", "pump", pump.getStatus()*100)
-                    
+                
+                # if the waterlevel is to high, the pump is turned off
                 if waterdistance < float(normalWaterdistance):
                     if pump.getStatus() == 1 and pump.getManual() == 0:
                         pump.setStatus(0)
@@ -233,5 +235,4 @@ if __name__ == "__main__":
         pump.cleanUp()
         ultrasonicSensor.cleanup()
         
-
         print("\nProgram stopped by user")
