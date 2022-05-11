@@ -8,9 +8,13 @@ COPY ./images/fish.png ./images/fish.png
 
 RUN apt-get update
 
-RUN apt-get install python3-pil
-RUN apt-get install python3-pip
-RUN pip3 install adafruit-circuitpython-pcd8544
-RUN pip3 install requests
+ RUN pip install --no-cache-dir rpi.gpio &&\
+    pip install adafruit-blinka &&\
+    pip install adafruit-circuitpython-pcd8544 &&\
+    pip install pillow &&\
+    pip install requests &&\
+    pip install ply &&\
+    pip install jinja2 &&\
+    pip install pyyaml
 
 CMD ["bash", "start.sh"]
