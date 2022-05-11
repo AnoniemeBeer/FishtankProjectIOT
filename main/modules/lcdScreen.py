@@ -60,7 +60,3 @@ class lcdScreen:
         draw.rectangle((0, 0, self.display.width, self.display.height), outline=255, fill=255)
         self.display.image(self.image)
         self.display.show()
-
-if __name__ == '__main__':
-    lcd = lcdScreen()
-    lcd.setImage('fish.png')
