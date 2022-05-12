@@ -16,4 +16,4 @@ Alles wat met code te maken heeft moet met functies in apparte .py files (module
 - [x] readme's
 - [x] software
 - [ ] Fisieke setup
-- [ ] optional: Docker
+- [x] optional: Docker
