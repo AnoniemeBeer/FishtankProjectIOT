@@ -1,0 +1,11 @@
+version: '2'
+services:
+  fishproject:
+    image: fishproject
+    container_name: fishproject
+    network_mode: host
+    environment:
+      - TZ=Europe/Brussels
+      - PGID=1000
+      - PUID=1000
+    privileged: true

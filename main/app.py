@@ -83,7 +83,7 @@ if __name__ == "__main__":
         feeder = fishFeederMotor(feederPins)
 
         lcdScreen = lcdScreen()
-        lcdScreen.setImage('../images/fish.png')
+        lcdScreen.setImage("images/fish.png")
 
         light = relay(lightRelayPin)
         pump = relay(pumpRelayPin)
@@ -112,7 +112,7 @@ if __name__ == "__main__":
         def pumpToggle(channel):
             pump.toggleStatus()
             print("Setting the pump status: ", pump.getStatus())
-            pump.setManual(1)
+            pump.setManual(pump.getStatus())
             uBeac.sendData("raspberry pi", "pump", pump.getStatus()*100)
 
         # initializing the button interrupts

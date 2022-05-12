@@ -8,7 +8,7 @@ COPY ./images/fish.png ./images/fish.png
 
 RUN apt-get update
 
- RUN pip install --no-cache-dir rpi.gpio &&\
+RUN pip install --no-cache-dir rpi.gpio &&\
     pip install adafruit-blinka &&\
     pip install adafruit-circuitpython-pcd8544 &&\
     pip install pillow &&\

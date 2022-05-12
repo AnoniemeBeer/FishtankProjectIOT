@@ -46,12 +46,12 @@ class fishFeederMotor:
         if direction == "cw":
             for i in range(0, stepsToRotate):
                 self.rotateOneStep("cw", i)
-                time.sleep(0.001)
+                time.sleep(0.003)
 
         if direction == "ccw":
             for i in range(0, stepsToRotate):
                 self.rotateOneStep("ccw", i)
-                time.sleep(0.001)
+                time.sleep(0.003)
 
         GPIO.output(self.pins, False)
 
