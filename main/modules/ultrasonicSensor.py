@@ -2,13 +2,14 @@ import time
 import RPi.GPIO as GPIO
 
 class ultrasonicSensor:
-    
+    # constructor, initialize the sensor
     def __init__(self, triggerPin, echoPin):
         self.trig = triggerPin
         self.echo = echoPin
         GPIO.setup(self.trig, GPIO.OUT)
         GPIO.setup(self.echo, GPIO.IN)
 
+    # getter, return the distance
     def getDistance(self):
             GPIO.output(self.trig, True)
             time.sleep(0.00001)
@@ -27,6 +28,7 @@ class ultrasonicSensor:
 
             return distance
         
+    # cleanup function, clean up the GPIO
     def cleanup(self):
         GPIO.output(self.trig, False)
         GPIO.cleanup()
