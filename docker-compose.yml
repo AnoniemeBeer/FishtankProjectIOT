@@ -1,8 +1,9 @@
 version: '2'
 services:
   fishproject:
-    image: fishproject
+    image: ghcr.io/anoniemebeer/fishtankprojectiot:1
     container_name: fishproject
+    restart: always
     network_mode: host
     environment:
       - TZ=Europe/Brussels
